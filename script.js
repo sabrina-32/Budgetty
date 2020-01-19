@@ -3,8 +3,26 @@
 
 
  var  budgetController = (function(){
-// some code
- })();
+    var Expense = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+        this.percentage = -1;};
+    
+    
+        Expense.prototype.calcPercentage = function(totalIncome) {
+            if (totalIncome > 0) {
+                this.percentage = Math.round((this.value / totalIncome) * 100);
+            } else {
+                this.percentage = -1;
+            }
+        };
+
+        Expense.prototype.getPercentage = function() {
+            return this.percentage;
+        };
+    
+    })();
 
 
 
@@ -52,10 +70,22 @@
 
  var controller = (function(budgetCtrl, UICtrl){
 
+    var setupEventListeners  = function(){
+        document.addEventListener('keypress', function(event){
+
+            if( event.keyCode ===13 || event.which===13){
+            ctrlAddItem();
+            
+            }
+            
+            });
+              
+    };
+
     var  DOM = UICtrl.getDOMstring();
 
 
-document.querySelector(DOM.inputBtn).addEventListener('click', function(){
+var ctrlAddItem = function(){
 
 // 1. get the field input data
 
@@ -83,30 +113,14 @@ console.log(input);
 
 
 
-
-
-
-
-
-
-
-
-});
+}
+document.querySelector(DOM.inputBtn).addEventListener('click',ctrlAddItem);
 
 document.addEventListener('keypress', function(event){
-if( event.keyCode ===13 || event.which===13){
-    console.log('Enter   was  pressed. ');
 
+
+
+
+ })(budgetController,  UIController)
 }
-
-});
-
-
-
- })(budgetController,  UIController);
-
-
-
-
-
 
