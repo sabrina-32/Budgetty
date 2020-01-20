@@ -3,26 +3,43 @@
 
 
  var  budgetController = (function(){
-    var Expense = function(id, description, value) {
+
+    //Expence
+    var  Expence = function(id,  description,  value){
         this.id = id;
         this.description = description;
         this.value = value;
-        this.percentage = -1;};
-    
-    
-        Expense.prototype.calcPercentage = function(totalIncome) {
-            if (totalIncome > 0) {
-                this.percentage = Math.round((this.value / totalIncome) * 100);
-            } else {
-                this.percentage = -1;
-            }
-        };
 
-        Expense.prototype.getPercentage = function() {
-            return this.percentage;
-        };
+    };
+
+
+
+
+    //Income
+    var  Income = function(id,  description,  value){
+        this.id = id;
+        this.description = description;
+        this.value = value;
+        
+    };
+ 
     
+
+
+    var  data = {
+
+        allItems: {
+            exp: [],
+            inc: []
+        },
+        totals : {
+            exp: 0,
+            inc: 0
+        }
+    }
+
     })();
+
 
 
 
@@ -42,11 +59,11 @@
         getInput:  function(){
 
             return{
-                  type : document.querySelector('.add__type').value, //  will  be  either  income or  expence
+                  type : document.querySelector(DOMstring.inputType).value, //  will  be  either  income or  expence
 
-                  description : document.querySelector('.add__description').value,
+                  description : document.querySelector(DOMstring.inputDescription).value,
     
-                 value : document.querySelector('.add__value').value
+                 value : document.querySelector(DOMstring.inputValue).value
     
             };
            
@@ -90,7 +107,6 @@ var ctrlAddItem = function(){
 // 1. get the field input data
 
 var input  = UICtrl.getInput();
-console.log(input);
 
 
 
@@ -113,14 +129,16 @@ console.log(input);
 
 
 
-}
-document.querySelector(DOM.inputBtn).addEventListener('click',ctrlAddItem);
+};
 
-document.addEventListener('keypress', function(event){
+return {
+    init:  function(){
+        console.log('application  has  started');
+        setupEventListeners();
 
+    }
+};
 
-
-
- })(budgetController,  UIController)
-}
-
+ })(budgetController,  UIController);
+ 
+controller.init();
